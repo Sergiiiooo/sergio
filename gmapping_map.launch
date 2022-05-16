@@ -1,0 +1,20 @@
+<launch>
+
+   alias ros="source /home/sergio/Desktop/robot_hulk/hulk/devel/setup.bash"
+
+   <node name="hulk_tf" pkg="gpar_hulk" type="hulk_tf"/>
+
+   <node name="rviz" pkg="rviz" type="rviz"/>
+
+   <node name="static_transform_publisher" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 base_link laser 100" />
+
+   <param name="use_sim_time" value="true"/>
+
+   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" args="scan:=scan _odom_frame:=odom _base_frame:=base_link" output="screen" >
+        <param name="base_frame" value="base_link"/>
+        <param name="odom_frame" value="odom" />
+	<param name="base_scan" value="scan" />
+     	<param name="delta" value="0.1"/>
+    </node>
+
+</launch>
